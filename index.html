@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<title>SAP — Sistema de Análise de Provas</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body {
+    background: var(--gray);
+    color: var(--text);
+    font-family: var(--font);
+    margin: 0;
+    line-height: 1.5;
+}
+.c-page {
+    max-width: var(--max-w-cms);
+    margin: 0 auto;
+    padding: var(--sp-6) var(--px);
+}
+.c-page h1 { font-size: var(--fs-xl); font-weight: 700; margin: 0 0 var(--sp-2); color: var(--text); }
+.c-page h2 { font-size: var(--fs-lg); font-weight: 700; margin: var(--sp-8) 0 var(--sp-3); color: var(--text); }
+.c-page p  { font-size: var(--fs-base); margin: var(--sp-2) 0; color: var(--text); }
+.c-page a  { color: var(--blue); text-decoration: none; font-weight: 600; }
+.c-page a:hover { text-decoration: underline; }
+.c-muted { color: var(--text-muted); font-size: var(--fs-sm); }
+
+.c-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--sp-3);
+    margin: var(--sp-5) 0;
+}
+.c-kpi {
+    background: #fff;
+    border: 1px solid var(--gray-mid);
+    border-radius: var(--radius);
+    padding: var(--sp-4);
+    box-shadow: var(--shadow);
+}
+.c-kpi.acc-red    { border-top: 4px solid var(--red); }
+.c-kpi.acc-orange { border-top: 4px solid var(--orange); }
+.c-kpi.acc-yellow { border-top: 4px solid var(--yellow); }
+.c-kpi.acc-green  { border-top: 4px solid var(--green); }
+.c-kpi.acc-blue   { border-top: 4px solid var(--blue); }
+.c-kpi-label {
+    font-size: var(--fs-xs); color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: .06em; font-weight: 700;
+}
+.c-kpi-value {
+    font-size: 1.6rem; font-weight: 700; margin-top: var(--sp-2);
+}
+.c-kpi-value.red    { color: var(--red); }
+.c-kpi-value.orange { color: var(--orange); }
+.c-kpi-value.yellow { color: var(--yellow); }
+.c-kpi-value.green  { color: var(--green); }
+.c-kpi-value.blue   { color: var(--blue); }
+
+.c-flag-card {
+    background: #fff;
+    border: 1px solid var(--gray-mid);
+    border-left: 4px solid var(--red);
+    border-radius: var(--radius);
+    padding: var(--sp-4);
+    margin: var(--sp-2) 0;
+    box-shadow: var(--shadow);
+}
+.c-flag-card.alta   { border-left-color: var(--orange); }
+.c-flag-card.media  { border-left-color: var(--yellow); }
+.c-flag-card.baixa  { border-left-color: var(--blue); }
+
+.c-cor-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+.c-cor-on  { background: var(--green); }
+.c-cor-off { background: var(--gray-mid); }
+
+.c-cor-list {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.c-row-warn {
+    background: var(--yellow-light);
+}
+
+/* Linhas de itens com categoria */
+.c-table tr.row-critico td:first-child { border-left: 3px solid var(--red); }
+.c-table tr.row-analisar td:first-child { border-left: 3px solid var(--yellow); }
+
+.chevron {
+    display: inline-block;
+    width: 14px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+/* Linha de detalhes (sem hover azul, para parecer parte da expansão) */
+.c-table tr.row-detalhe:hover { background: var(--gray-lighter) !important; }
+
+.c-legend {
+    display: flex; gap: var(--sp-4); flex-wrap: wrap;
+    font-size: var(--fs-sm); color: var(--text-muted);
+    margin: var(--sp-3) 0;
+}
+.c-legend span { display: inline-flex; align-items: center; gap: 4px; }
+
+/* ===== Overrides de contraste (escopo: índice v2) ===== */
+:root {
+    /* Tokens repintados para esta página — texto secundário e bordas mais firmes */
+    --text-muted: #334155;       /* slate-700 (era #6b7280, gray-500) */
+    --text:        #0f172a;      /* slate-900 (era #1a1f36) */
+    --gray-mid:    #94a3b8;      /* slate-400 (era #dde2ec) */
+    --gray-light:  #e2e8f0;      /* slate-200 */
+    --gray-lighter:#f1f5f9;      /* slate-100 */
+}
+body { background: #eef2f7; color: var(--text); }
+
+/* Chips de status — borda + fundo mais saturado, texto mais escuro (AA+) */
+.c-status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: .73rem;
+    font-weight: 700;
+    border: 1px solid currentColor;
+    line-height: 1.3;
+}
+.c-status-red    { background: #fee2e2; color: #991b1b; }
+.c-status-orange { background: #ffedd5; color: #9a3412; }
+.c-status-yellow { background: #fef3c7; color: #854d0e; }
+.c-status-blue   { background: #dbeafe; color: #1e3a8a; }
+.c-status-green  { background: #dcfce7; color: #166534; }
+
+/* KPI cards — borda visível e label mais legível */
+.c-kpi {
+    background: #fff;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 1px 2px rgba(15,23,42,.05), 0 4px 10px rgba(15,23,42,.04);
+}
+.c-kpi-label { color: #0f172a !important; font-weight: 700 !important; }
+.c-kpi-value { font-weight: 800 !important; }
+.c-kpi-value.yellow { color: #b45309 !important; }
+.c-kpi-value.red    { color: #b91c1c !important; }
+.c-kpi-value.green  { color: #15803d !important; }
+.c-kpi-value.blue   { color: #1d4ed8 !important; }
+.c-kpi p { color: #334155 !important; }
+
+/* Hero — eyebrow e descrição mais nítidos */
+.c-hero-eyebrow { opacity: 1 !important; color: #fff !important; }
+.c-hero p { color: rgba(255,255,255,0.97) !important; }
+.c-hero-stat .lbl { color: rgba(255,255,255,0.97) !important; }
+
+/* Header reset — sobrepõe o design system para ficar enxuto e bem alinhado */
+.c-header { padding: 0; }
+.c-header-inner {
+    max-width: var(--max-w-cms) !important;
+    padding: 18px 28px !important;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.c-header-logo {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    background: rgba(255,255,255,0.15) !important;
+    color: #fff !important;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 8px;
+}
+.c-header h1 {
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2;
+    color: #fff !important;
+    margin: 0 !important;
+}
+.c-header p {
+    font-size: 0.78rem !important;
+    color: rgba(255,255,255,0.85) !important;
+    margin: 2px 0 0 !important;
+    line-height: 1.3;
+}
+
+.c-hero {
+    background: linear-gradient(135deg, var(--blue) 0%, #1d4ed8 100%);
+    color: #fff;
+    padding: 36px 40px;
+    border-radius: var(--radius);
+    margin-bottom: var(--sp-6);
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+.c-hero-text { min-width: 0; }
+.c-hero-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    font-size: .7rem;
+    font-weight: 700;
+    opacity: .85;
+    margin-bottom: 10px;
+}
+.c-hero h1 {
+    color: #fff !important;
+    font-size: 1.75rem !important;
+    margin: 0 0 12px !important;
+    font-weight: 800;
+    line-height: 1.15;
+}
+.c-hero p {
+    color: rgba(255,255,255,0.92) !important;
+    margin: 0 !important;
+    font-size: .92rem;
+    line-height: 1.55;
+}
+.c-hero-stats {
+    display: flex;
+    gap: 28px;
+    justify-content: flex-end;
+    border-left: 1px solid rgba(255,255,255,0.25);
+    padding-left: 36px;
+}
+.c-hero-stat {
+    text-align: center;
+}
+.c-hero-stat .num {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #fff;
+}
+.c-hero-stat .lbl {
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,0.85);
+    margin-top: 6px;
+    font-weight: 600;
+}
+@media (max-width: 900px) {
+    .c-hero {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .c-hero-stats {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.25);
+        padding: 24px 0 0;
+        justify-content: flex-start;
+    }
+}
+
+.c-prova-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 200px 180px 180px;
+    gap: var(--sp-4);
+    align-items: center;
+    padding: var(--sp-4);
+    border-bottom: 1px solid #cbd5e1;
+    background: #fff;
+    transition: background .15s;
+    color: #0f172a;
+}
+.c-prova-row:hover { background: #eff6ff; }
+.c-prova-row.urgente { border-left: 6px solid #b91c1c; }
+.c-prova-row.revisar { border-left: 6px solid #b45309; }
+.c-prova-row.pronto  { border-left: 6px solid #15803d; }
+.c-prova-row.aguardando { border-left: 6px solid #64748b; }
+
+.c-prova-titulo {
+    font-weight: 700;
+    font-size: var(--fs-base);
+    color: #0f172a;
+}
+.c-prova-titulo a { color: #1d4ed8; text-decoration: none; font-weight: 700; }
+.c-prova-titulo a:hover { text-decoration: underline; }
+.c-prova-sub {
+    color: #475569;
+    font-size: var(--fs-xs);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.c-stat-mini {
+    text-align: center;
+}
+.c-stat-mini .num {
+    font-size: 1.4rem;
+    font-weight: 800;
+    line-height: 1;
+}
+.c-stat-mini .num.red    { color: #b91c1c; }
+.c-stat-mini .num.yellow { color: #b45309; }
+.c-stat-mini .num.green  { color: #15803d; }
+.c-stat-mini .num.gray   { color: #64748b; }
+.c-stat-mini .lbl {
+    color: #1f2937;
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-top: 4px;
+    font-weight: 700;
+}
+
+.c-table-provas {
+    background: #fff;
+    border: 2px solid #1f2937;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(15,23,42,.08);
+}
+.c-table-header {
+    display: grid;
+    grid-template-columns: 80px 1fr 200px 180px 180px;
+    gap: var(--sp-4);
+    padding: var(--sp-4);
+    background: #1f2937;
+    color: #fff;
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    font-weight: 700;
+}
+
+.c-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--sp-3);
+    margin: var(--sp-5) 0 var(--sp-6);
+}
+
+.c-acao-item {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: var(--sp-4);
+    border-left: 4px solid var(--red);
+    box-shadow: var(--shadow);
+    margin: var(--sp-3) 0;
+}
+.c-acao-item.media { border-left-color: var(--yellow); }
+.c-acao-item.baixa { border-left-color: var(--blue); }
+.c-acao-titulo {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 800px) {
+    .c-prova-row, .c-table-header {
+        grid-template-columns: 1fr;
+        gap: var(--sp-2);
+    }
+}
+
+/* ===== Abas (Critérios | Resultados) ===== */
+.c-tabs {
+    max-width: var(--max-w-cms);
+    margin: 0 auto;
+    padding: 0 var(--sp-4);
+    background: #eef2f7;
+}
+.c-tab-nav {
+    display: flex;
+    gap: 6px;
+    border-bottom: 3px solid #1f2937;
+    margin: var(--sp-5) 0 0;
+}
+.c-tab-btn {
+    background: #e2e8f0;
+    border: 2px solid #1f2937;
+    border-bottom: none;
+    padding: 12px 26px;
+    font: inherit;
+    font-size: var(--fs-base);
+    font-weight: 700;
+    color: #1f2937;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: -3px;
+    transition: background .15s, color .15s;
+}
+.c-tab-btn:hover { background: #cbd5e1; }
+.c-tab-btn.active {
+    background: #1f2937;
+    color: #fff;
+}
+.c-tab-panel { display: none; padding-top: var(--sp-5); }
+.c-tab-panel.active { display: block; }
+
+/* ===== Rubrica (aba de critérios) ===== */
+.r-intro {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: var(--sp-5);
+    box-shadow: 0 2px 10px rgba(15,23,42,.06);
+    border: 2px solid #1d4ed8;
+    border-left-width: 6px;
+    margin-bottom: var(--sp-6);
+}
+.r-intro h2 { margin-top: 0 !important; color: #0f172a; }
+/* Etapas em formato timeline vertical */
+.r-steps {
+    counter-reset: rstep;
+    list-style: none;
+    padding: 0;
+    margin: var(--sp-4) 0 0;
+    position: relative;
+}
+.r-steps::before {
+    content: "";
+    position: absolute;
+    left: 19px;
+    top: 14px;
+    bottom: 14px;
+    width: 3px;
+    background: #cbd5e1;
+    border-radius: 2px;
+    z-index: 0;
+}
+.r-steps li {
+    counter-increment: rstep;
+    background: #fff;
+    border: 1.5px solid #cbd5e1;
+    padding: 16px 18px 16px 60px;
+    border-radius: 8px;
+    position: relative;
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+    color: #0f172a;
+    margin-bottom: 12px;
+    z-index: 1;
+}
+.r-steps li:last-child { margin-bottom: 0; }
+.r-steps li::before {
+    content: counter(rstep);
+    position: absolute;
+    left: 8px;
+    top: 12px;
+    width: 28px;
+    height: 28px;
+    background: #1d4ed8;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .9rem;
+    box-shadow: 0 0 0 4px #fff;
+}
+.r-step-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+}
+.r-step-titulo {
+    font-weight: 800;
+    color: #0f172a;
+    font-size: var(--fs-base);
+}
+.r-step-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: .68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    border: 1.5px solid currentColor;
+}
+.r-step-badge.feito    { background: #dcfce7; color: #166534; }
+.r-step-badge.parcial  { background: #fef3c7; color: #854d0e; }
+.r-step-badge.previsto { background: #e2e8f0; color: #334155; }
+
+/* Tipo de trabalho (regras automáticas vs IA) — diferenciação leve */
+.r-step-tipo {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    background: #e2e8f0;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+}
+.r-step-tipo.ia {
+    background: #ede9fe;
+    color: #5b21b6;
+    border-color: #c4b5fd;
+}
+.r-step-desc { color: #1e293b; }
+
+.r-status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--sp-3);
+    margin: var(--sp-4) 0 var(--sp-6);
+}
+.r-status-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: var(--sp-5);
+    box-shadow: 0 2px 8px rgba(15,23,42,.06);
+    border: 2px solid #cbd5e1;
+    border-top-width: 6px;
+}
+.r-status-card.red    { border-color: #fecaca; border-top-color: #b91c1c; }
+.r-status-card.yellow { border-color: #fde68a; border-top-color: #b45309; }
+.r-status-card.green  { border-color: #bbf7d0; border-top-color: #15803d; }
+.r-status-card h4 { margin: 0 0 8px; font-size: 1.05rem; font-weight: 800; }
+.r-status-card.red h4    { color: #991b1b; }
+.r-status-card.yellow h4 { color: #854d0e; }
+.r-status-card.green h4  { color: #166534; }
+.r-status-card p { margin: 0; font-size: var(--fs-sm); color: #1e293b; line-height: 1.55; font-weight: 500; }
+
+.r-block {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: var(--sp-5);
+    box-shadow: 0 2px 10px rgba(15,23,42,.06);
+    margin-bottom: var(--sp-5);
+    border: 2px solid #cbd5e1;
+    border-left: 6px solid #1d4ed8;
+}
+.r-block.anexo { border-left-color: #475569; }
+.r-block-header { margin-bottom: var(--sp-3); }
+.r-block-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+.r-block-sub {
+    font-size: var(--fs-sm);
+    color: #1e293b;
+    margin: 6px 0 0;
+    font-weight: 500;
+    line-height: 1.55;
+}
+.r-block-q {
+    font-size: var(--fs-sm);
+    font-style: italic;
+    color: #1d4ed8;
+    margin: 10px 0 0;
+    font-weight: 600;
+}
+
+.r-group {
+    margin-top: var(--sp-5);
+}
+.r-group:first-of-type { margin-top: var(--sp-3); }
+.r-group-title {
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--text);
+    font-weight: 800;
+    margin: 0 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--blue);
+    display: inline-block;
+}
+
+/* Tabela de critérios — contraste alto, linhas bem definidas */
+.r-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border: 1.5px solid #1f2937;
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: var(--fs-sm);
+}
+.r-table thead th {
+    background: #1f2937;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-size: .72rem;
+    padding: 10px 14px;
+    text-align: left;
+    border-right: 1px solid #374151;
+}
+.r-table thead th:last-child { border-right: none; }
+.r-table tbody td {
+    padding: 12px 14px;
+    border-top: 1px solid #cbd5e1;
+    border-right: 1px solid #e2e8f0;
+    vertical-align: middle;
+    color: #0f172a;
+    line-height: 1.5;
+}
+.r-table tbody td:last-child { border-right: none; }
+.r-table tbody tr:nth-child(even) td { background: #f8fafc; }
+.r-table tbody tr:hover td { background: #eff6ff; }
+.r-table tbody tr.disabled td { color: #64748b; background: #f1f5f9; }
+.r-table tbody tr.disabled td:nth-child(n) { background: #f1f5f9; }
+
+.r-col-crit { width: 80px; text-align: center; }
+.r-col-id   { width: 195px; }
+.r-col-tipo { width: 150px; text-align: center; }
+.r-col-sev  { width: 130px; text-align: center; }
+.r-col-desc { }
+
+/* Chip de tipo (regra automática × análise por IA) */
+.r-tipo-chip {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: .7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    border: 1.5px solid;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+.r-tipo-chip.auto { background: #e2e8f0; color: #1f2937; border-color: #94a3b8; }
+.r-tipo-chip.ia   { background: #ede9fe; color: #5b21b6; border-color: #a78bfa; }
+
+/* Tag do critério (C1, C2, ...) */
+.r-crit-tag {
+    display: inline-block;
+    background: #1d4ed8;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .82rem;
+    font-weight: 800;
+    min-width: 38px;
+    text-align: center;
+    letter-spacing: .03em;
+}
+
+/* Cards-resumo de critérios — versão compacta */
+.r-crit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--sp-3);
+    margin: var(--sp-3) 0 var(--sp-6);
+}
+.r-crit-card {
+    background: #fff;
+    border: 1.5px solid #cbd5e1;
+    border-left: 5px solid #1d4ed8;
+    padding: 12px 14px;
+    border-radius: 6px;
+}
+.r-crit-card.sem-regra { border-left-color: #94a3b8; background: #f8fafc; }
+.r-crit-card-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+.r-crit-card-title {
+    font-weight: 800;
+    color: #0f172a;
+    font-size: .92rem;
+    line-height: 1.25;
+}
+.r-crit-card-desc {
+    margin: 0 !important;
+    color: #1e293b;
+    font-size: .78rem !important;
+    line-height: 1.45;
+}
+.r-crit-card-flag {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #475569;
+    background: #e2e8f0;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.r-crit-id {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .8rem;
+    color: #1e3a8a;
+    font-weight: 700;
+    background: #eff6ff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #bfdbfe;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* Chip de severidade — grande e nítido */
+.r-sev {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #fff;
+    border: 1.5px solid transparent;
+    min-width: 88px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.r-sev.critica { background: #b91c1c; border-color: #7f1d1d; }
+.r-sev.alta    { background: #c2410c; border-color: #7c2d12; }
+.r-sev.media   { background: #b45309; border-color: #78350f; }
+.r-sev.baixa   { background: #1d4ed8; border-color: #1e3a8a; }
+
+.r-crit-disabled-tag {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: .7rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #475569;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.r-narrative {
+    font-size: var(--fs-sm);
+    color: #0f172a;
+    line-height: 1.6;
+    margin: 0 0 var(--sp-3);
+}
+.r-narrative ul { margin: 8px 0 0 18px; padding: 0; }
+.r-narrative li { margin: 4px 0; }
+.r-narrative code {
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: .8rem;
+}
+
+@media (max-width: 700px) {
+    .r-table thead { display: none; }
+    .r-table tbody td { display: block; border-right: none; padding: 8px 14px; }
+    .r-table tbody td:first-child { padding-top: 14px; }
+    .r-table tbody td:last-child { padding-bottom: 14px; }
+    .r-col-sev { text-align: left; }
+}
+</style>
+</head><body>
+<header class="c-header"><div class="c-header-inner">
+    <div class="c-header-logo" style="font-size:13px;letter-spacing:.5px">SAP</div>
+    <div>
+        <h1>SAP | Sistema de Análise de Provas</h1>
+        <p>Prova Paulista 2026 · 1° Bimestre · Coordenação pedagógica</p>
+    </div>
+</div></header>
+
+    <div class="c-tabs">
+        <nav class="c-tab-nav" role="tablist">
+            <button class="c-tab-btn" data-tab="criterios" role="tab">Critérios para análise</button>
+            <button class="c-tab-btn active" data-tab="resultados" role="tab">Resultados da análise</button>
+        </nav>
+    </div>
+    <section class="c-tab-panel" data-tab="criterios">
+        <main class="c-page">
+    <section class="r-intro">
+        <h2>Etapas da análise</h2>
+        <p class="r-narrative">Cada prova passa por quatro etapas, da leitura do caderno até a
+        comparação entre as três cores. As duas primeiras aplicam regras objetivas, a terceira
+        envolve julgamento da IA, e a quarta confere se as cores carregam o mesmo instrumento.
+        Todas as quatro estão presentes no relatório que você está vendo.</p>
+        <ol class="r-steps">
+            <li>
+                <div class="r-step-head">
+                    <span class="r-step-titulo">Leitura do caderno</span>
+                    <span class="r-step-tipo">extração automática</span>
+                    <span class="r-step-badge feito">no relatório</span>
+                </div>
+                <div class="r-step-desc">O PDF da prova é digitalizado pelo sistema, que separa
+                cada item, suas alternativas e o gabarito impresso. É a partir desse texto bruto
+                que tudo o mais acontece — quando algo não foi extraído (uma fórmula em imagem,
+                por exemplo), as etapas seguintes já apontam.</div>
+            </li>
+            <li>
+                <div class="r-step-head">
+                    <span class="r-step-titulo">Conferência automática item a item</span>
+                    <span class="r-step-tipo">regras automáticas</span>
+                    <span class="r-step-badge feito">no relatório</span>
+                </div>
+                <div class="r-step-desc">Uma bateria de checagens objetivas examina cada item:
+                enunciado completo, distratores plausíveis, gabarito identificável, imagens
+                nítidas, sem dependência de cor para responder, ausência de termos pejorativos.
+                São as regras que aparecem nos Blocos 1, 2 e 3 desta rubrica.</div>
+            </li>
+            <li>
+                <div class="r-step-head">
+                    <span class="r-step-titulo">Análise crítica feita por IA</span>
+                    <span class="r-step-tipo ia">julgamento por IA</span>
+                    <span class="r-step-badge feito">no relatório</span>
+                </div>
+                <div class="r-step-desc">As duas etapas anteriores aplicam regras objetivas. Aqui
+                a leitura muda de natureza: uma <strong>IA</strong> lê cada item com olhar
+                pedagógico, confronta o que ele realmente cobra com o descritor, a habilidade e
+                o conteúdo declarados, e atribui um dos três status (OK, a conferir, crítico).
+                É nesta etapa que aparecem incoerências de catalogação — descritor que não bate
+                com o item, habilidade desviante (Bloco 4). A coordenação e a autora revisam
+                esses apontamentos antes de qualquer decisão final.</div>
+            </li>
+            <li>
+                <div class="r-step-head">
+                    <span class="r-step-titulo">Comparação entre as cores Roxa, Laranja e Verde</span>
+                    <span class="r-step-tipo">comparação automática</span>
+                    <span class="r-step-badge feito">no relatório</span>
+                </div>
+                <div class="r-step-desc">Cada item da Roxa é pareado com a versão equivalente
+                nas outras duas cores. Diferenças que não deveriam existir — texto que mudou,
+                alternativa que sumiu, posição do gabarito que ficou previsível — viram alertas
+                no Anexo A.</div>
+            </li>
+        </ol>
+    </section>
+
+    <h2>Resultado da análise para cada item</h2>
+    <div class="r-status-grid">
+        <div class="r-status-card red">
+            <h4>Crítico</h4>
+            <p>A IA identificou algo que impede a aplicação como está — descritor incompatível
+            com o item, gabarito ambíguo, alternativa duplicada, dependência de imagem que não
+            imprime bem. <strong>Precisa decisão da autora ou da coordenação antes de mandar
+            para a gráfica.</strong></p>
+        </div>
+        <div class="r-status-card yellow">
+            <h4>A conferir</h4>
+            <p>A IA encontrou um sinal que merece um segundo par de olhos — habilidade declarada
+            que parece não bater, imagem que o sistema não conseguiu ler, suspeita que não foi
+            confirmada. Não bloqueia, mas pede revisão pedagógica.</p>
+        </div>
+        <div class="r-status-card green">
+            <h4>OK / Aprovado</h4>
+            <p>Item passou pelas etapas sem ressalvas, tanto nas regras automáticas quanto na
+            análise da IA. Pode seguir como está.</p>
+        </div>
+    </div>
+    
+    <h2>Critérios gerais</h2>
+    <div class="r-crit-grid">
+        <div class="r-crit-card">
+            <div class="r-crit-card-head">
+                <span class="r-crit-tag">C1</span>
+                <span class="r-crit-card-title">Operacional da prova</span>
+            </div>
+            <p class="r-crit-card-desc">Cabeçalho, numeração, layout e imagens nítidas.</p>
+            
+        </div>
+        <div class="r-crit-card">
+            <div class="r-crit-card-head">
+                <span class="r-crit-tag">C2</span>
+                <span class="r-crit-card-title">O item faz sentido?</span>
+            </div>
+            <p class="r-crit-card-desc">Enunciado claro, distratores plausíveis, gabarito identificável.</p>
+            
+        </div>
+        <div class="r-crit-card">
+            <div class="r-crit-card-head">
+                <span class="r-crit-tag">C3</span>
+                <span class="r-crit-card-title">Equidade e contexto</span>
+            </div>
+            <p class="r-crit-card-desc">Acessibilidade, sem viés, linguagem inclusiva.</p>
+            
+        </div>
+        <div class="r-crit-card">
+            <div class="r-crit-card-head">
+                <span class="r-crit-tag">C4</span>
+                <span class="r-crit-card-title">Validação pedagógica</span>
+            </div>
+            <p class="r-crit-card-desc">Descritor ↔ habilidade ↔ conteúdo coerente com o item.</p>
+            
+        </div>
+        <div class="r-crit-card">
+            <div class="r-crit-card-head">
+                <span class="r-crit-tag">C5</span>
+                <span class="r-crit-card-title">Divergências entre cores</span>
+            </div>
+            <p class="r-crit-card-desc">Roxa, Laranja e Verde carregam o mesmo conteúdo.</p>
+            
+        </div></div>
+    <h2>Regras detalhadas</h2>
+    <p class="r-narrative">Lista das verificações que cada prova recebe: <strong>39
+    regras automáticas</strong> conferidas por software e <strong>11 análises por IA</strong>
+    (julgamento qualitativo da etapa 3, sempre pré-aplicação).</p>
+    <table class="r-table r-table-unica">
+        <thead>
+            <tr>
+                <th class="r-col-crit">Critério</th>
+                <th class="r-col-id">ID da regra</th>
+                <th class="r-col-desc">O que a regra verifica</th>
+                <th class="r-col-tipo">Tipo</th>
+                <th class="r-col-sev">Resultado</th>
+            </tr>
+        </thead>
+        <tbody><tr><td class="r-col-crit"><span class="r-crit-tag">C1</span></td><td class="r-col-id"><span class="r-crit-id">L1-num-alternativas-constante</span></td><td class="r-col-desc">N° de alternativas constante na prova (todas 4 ou todas 5) — leitor ótico não tolera variação</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C1</span></td><td class="r-col-id"><span class="r-crit-id">L1-numeracao-continua</span></td><td class="r-col-desc">Numeração de itens contínua, sem buraco ou repetição</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C1</span></td><td class="r-col-id"><span class="r-crit-id">L1-margem-segura</span></td><td class="r-col-desc">Nenhum elemento fora da margem segura (15mm das bordas)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C1</span></td><td class="r-col-id"><span class="r-crit-id">L1-quebra-pagina</span></td><td class="r-col-desc">Item não cortado pela quebra de página</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C1</span></td><td class="r-col-id"><span class="r-crit-id">L1-fonte-consistente</span></td><td class="r-col-desc">Fonte e tamanho consistentes entre itens</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev media">média</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C1</span></td><td class="r-col-id"><span class="r-crit-id">L1-densidade</span></td><td class="r-col-desc">Espaçamento mínimo entre itens (densidade)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev baixa">baixa</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">IA-gabarito-resolvido</span></td><td class="r-col-desc">IA resolve o item analisando comando, alternativas e distratores; falha se não há exatamente uma resposta correta ou se a resposta diverge do gabarito catalogado</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-graf-4-reproduzivel-caderno</span></td><td class="r-col-desc">Imagem reproduzível claramente em caderno (resolução, contraste, sem dependência de cor)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-key-1-correto</span></td><td class="r-col-desc">Gabarito responde correta e plenamente à questão</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-key-5-bate-sistema</span></td><td class="r-col-desc">Gabarito impresso == gabarito declarado no sistema</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-opt-3-sem-estereotipos</span></td><td class="r-col-desc">Sem estereótipos negativos nas alternativas</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-opt-5-sem-duplicatas</span></td><td class="r-col-desc">Sem 2 alternativas com texto idêntico</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-stem-3-info-completa</span></td><td class="r-col-desc">Enunciado inclui todas as informações necessárias (sem &#x27;ver figura X&#x27; ausente)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-stem-4-uma-correta</span></td><td class="r-col-desc">Apenas uma resposta correta declarada</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">IA-linguagem-serie</span></td><td class="r-col-desc">Vocabulário e complexidade sintática adequados à série</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">IA-stem-claro</span></td><td class="r-col-desc">Enunciado é claro e direto, sem ambiguidade desnecessária</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">IA-tarefa-clara</span></td><td class="r-col-desc">Tarefa do aluno explícita (verbo de comando + objeto)</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-graf-1-rotulos</span></td><td class="r-col-desc">Gráficos/tabelas rotulados clara e corretamente (eixos, legendas)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-graf-2-info-suficiente</span></td><td class="r-col-desc">Imagem ou tabela fornece todas as informações necessárias para responder.</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-irt-1-independencia-local</span></td><td class="r-col-desc">Item não pode referenciar outro (frases como &#x27;na questão anterior&#x27;, &#x27;use o resultado&#x27;, &#x27;veja a Q5&#x27;)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-opt-1-distratores-plausíveis</span></td><td class="r-col-desc">Distratores plausíveis — alternativas erradas com cara de poderem estar certas, sem opções claramente absurdas.</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-opt-2-independentes</span></td><td class="r-col-desc">Opções logicamente independentes (sem &#x27;todas/nenhuma das anteriores&#x27;, sem inclusão A⊂B)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-opt-6-distribuicao-gabarito</span></td><td class="r-col-desc">Distribuição do gabarito equilibrada na prova como conjunto, sem letra dominante.</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-stem-6-sem-eliminacao</span></td><td class="r-col-desc">Enunciado não permite resolução por eliminação fácil (sobreposição token chave↔enunciado)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-stem-7-negativa-destacada</span></td><td class="r-col-desc">Negativas (EXCETO, INCORRETO) destacadas em maiúsculo ou negrito</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-irt-2-unidimensionalidade</span></td><td class="r-col-desc">Item mede um único construto (não mistura LP+MAT involuntariamente)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev media">média</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-key-2-nao-mais-detalhado</span></td><td class="r-col-desc">Gabarito não é o mais detalhado (comprimento da chave ≤ média + 1σ dos distratores)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev media">média</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-stem-1-ideia-completa</span></td><td class="r-col-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev media">média</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-stem-5-linguagem-simples</span></td><td class="r-col-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev media">média</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-key-3-similar-distratores</span></td><td class="r-col-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev baixa">baixa</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-key-4-nao-repete-enunciado</span></td><td class="r-col-desc">Gabarito não repete palavras do enunciado desproporcionalmente</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev baixa">baixa</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C2</span></td><td class="r-col-id"><span class="r-crit-id">L2-stem-2-tarefa-clara</span></td><td class="r-col-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev baixa">baixa</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C3</span></td><td class="r-col-id"><span class="r-crit-id">L5-linguagem-inclusiva</span></td><td class="r-col-desc">Sem termos pejorativos por gênero/raça/origem</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C3</span></td><td class="r-col-id"><span class="r-crit-id">L5-contraste-figuras</span></td><td class="r-col-desc">Contraste suficiente em figuras (WCAG AA)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C3</span></td><td class="r-col-id"><span class="r-crit-id">L5-sem-vies-cultural</span></td><td class="r-col-desc">Sem viés cultural ou regional óbvio — contexto acessível a alunos de diferentes regiões e realidades.</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">IA-descritor-incoerente</span></td><td class="r-col-desc">Descritor catalogado não bate com o que o item efetivamente cobra</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">L3-bimestre-dia-corretos</span></td><td class="r-col-desc">Bimestre / Dia 1 ou 2 corretos</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">L3-gabarito-bate</span></td><td class="r-col-desc">Gabarito do PDF == gabarito no sistema, item por item</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">L3-id-unico</span></td><td class="r-col-desc">ID do item único e idêntico nos dois lados (PDF e banco)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">L3-num-alternativas-bate</span></td><td class="r-col-desc">N° de alternativas no PDF == QuantidadeAlternativas no sistema</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">L3-posicao-bate</span></td><td class="r-col-desc">Posição do item na prova casada entre PDF e banco (question_order)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">IA-conteudo-incoerente</span></td><td class="r-col-desc">Conteúdo declarado não bate com o tema real do item</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">IA-habilidade-desviante</span></td><td class="r-col-desc">Habilidade declarada não casa com a tarefa real do item</td><td class="r-col-tipo"><span class="r-tipo-chip ia">análise por IA</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">L3-bncc-coerente</span></td><td class="r-col-desc">Habilidade BNCC vinculada == coerente com o item (TF-IDF)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev alta">alta</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C4</span></td><td class="r-col-id"><span class="r-crit-id">L3-componente-coerente</span></td><td class="r-col-desc">Componente declarado == componente real do enunciado (classificador NLP)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev baixa">baixa</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C5</span></td><td class="r-col-id"><span class="r-crit-id">L4-count-igual</span></td><td class="r-col-desc">N° total de itens igual entre as 3 versões</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C5</span></td><td class="r-col-id"><span class="r-crit-id">L4-hash-correta</span></td><td class="r-col-desc">Texto da alternativa correta com hash MD5 igual entre cores</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C5</span></td><td class="r-col-id"><span class="r-crit-id">L4-modelo-identico</span></td><td class="r-col-desc">Item modelo idêntico em todas as cores (de-para auditado)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C5</span></td><td class="r-col-id"><span class="r-crit-id">L4-sem-orfaos</span></td><td class="r-col-desc">Sem item órfão (presente em uma cor, ausente em outra)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev critica">crítica</span></td></tr><tr><td class="r-col-crit"><span class="r-crit-tag">C5</span></td><td class="r-col-id"><span class="r-crit-id">L4-posicoes-embaralhadas</span></td><td class="r-col-desc">Posições das alternativas embaralhadas entre cores (anti-cola funcional)</td><td class="r-col-tipo"><span class="r-tipo-chip auto">regra automática</span></td><td class="r-col-sev"><span class="r-sev media">média</span></td></tr></tbody>
+    </table></main>
+    </section>
+    <section class="c-tab-panel active" data-tab="resultados">
+        <main class="c-page">
+    
+    <div class="c-hero">
+        <div class="c-hero-text">
+            <div class="c-hero-eyebrow">Coordenação pedagógica · Prova Paulista 2026 · 1° Bimestre</div>
+            <h1>Visão geral das provas</h1>
+            <p>Revisão pedagógica e operacional de cada prova antes da aplicação na rede,
+            com foco em coerência item↔descritor, equidade e adequação à série. Análise
+            feita item a item, prova a prova, sobre a versão Roxa de referência.</p>
+        </div>
+        <div class="c-hero-stats">
+            <div class="c-hero-stat">
+                <div class="num">18</div>
+                <div class="lbl">Provas</div>
+            </div>
+            <div class="c-hero-stat">
+                <div class="num">660</div>
+                <div class="lbl">Itens analisados</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="c-summary-grid">
+        <div class="c-kpi acc-red">
+            <div class="c-kpi-label">Itens com problema crítico</div>
+            <div class="c-kpi-value red">6</div>
+            <p style="font-size:var(--fs-xs);color:var(--text-muted);margin:6px 0 0">
+                Decisão do coordenador. Ação antes da gráfica.
+            </p>
+        </div>
+        <div class="c-kpi acc-yellow">
+            <div class="c-kpi-label">Itens a conferir</div>
+            <div class="c-kpi-value yellow">6</div>
+            <p style="font-size:var(--fs-xs);color:var(--text-muted);margin:6px 0 0">
+                Conferir com revisor pedagógico.
+            </p>
+        </div>
+        <div class="c-kpi acc-green">
+            <div class="c-kpi-label">Itens aprovados</div>
+            <div class="c-kpi-value green">648</div>
+            <p style="font-size:var(--fs-xs);color:var(--text-muted);margin:6px 0 0">
+                Sem ressalvas pedagógicas.
+            </p>
+        </div></div>
+    
+    <div class="c-table-provas">
+        <div class="c-table-header">
+            <div>Série / Dia</div>
+            <div>Prova</div>
+            <div style="text-align:center">Críticos</div>
+            <div style="text-align:center">A conferir</div>
+            <div style="text-align:center">OK</div>
+        </div>
+        
+        <div class="c-prova-row urgente">
+            <div>
+                <div style="font-weight:700">4º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 1</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_4_d1_roxa.html">Prova 4º ano EF · Dia 1</a>
+                    
+                </div>
+                <div class="c-prova-sub">30 itens · 15 páginas · 19 Língua Portuguesa · 6 Geografia · 5 História</div>
+            </div>
+            <div class="c-stat-mini"><div class="num red">1</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">29</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row pronto">
+            <div>
+                <div style="font-weight:700">4º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 2</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_4_d2_roxa.html">Prova 4º ano EF · Dia 2</a>
+                    
+                </div>
+                <div class="c-prova-sub">30 itens · 15 páginas · 19 Matemática · 11 Ciências</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">30</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row urgente">
+            <div>
+                <div style="font-weight:700">5º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 1</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_5_d1_roxa.html">Prova 5º ano EF · Dia 1</a>
+                    
+                </div>
+                <div class="c-prova-sub">30 itens · 15 páginas · 20 Língua Portuguesa · 6 História · 4 Geografia</div>
+            </div>
+            <div class="c-stat-mini"><div class="num red">1</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num yellow">1</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">28</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row pronto">
+            <div>
+                <div style="font-weight:700">5º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 2</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_5_d2_roxa.html">Prova 5º ano EF · Dia 2</a>
+                    
+                </div>
+                <div class="c-prova-sub">30 itens · 15 páginas · 20 Matemática · 10 Ciências</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">30</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row pronto">
+            <div>
+                <div style="font-weight:700">6º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 1</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_6_d1_roxa.html">Prova 6º ano EF · Dia 1</a>
+                    
+                </div>
+                <div class="c-prova-sub">40 itens · 15 páginas · 19 Língua Portuguesa · 11 História · 10 Geografia</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">40</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row pronto">
+            <div>
+                <div style="font-weight:700">6º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 2</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_6_d2_roxa.html">Prova 6º ano EF · Dia 2</a>
+                    
+                </div>
+                <div class="c-prova-sub">40 itens · 15 páginas · 20 Ciências · 20 Matemática</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">40</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row pronto">
+            <div>
+                <div style="font-weight:700">7º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 1</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_7_d1_roxa.html">Prova 7º ano EF · Dia 1</a>
+                    
+                </div>
+                <div class="c-prova-sub">40 itens · 15 páginas · 20 Língua Portuguesa · 11 História · 9 Geografia</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">40</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row urgente">
+            <div>
+                <div style="font-weight:700">7º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 2</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_7_d2_roxa.html">Prova 7º ano EF · Dia 2</a>
+                    
+                </div>
+                <div class="c-prova-sub">40 itens · 15 páginas · 24 Matemática · 16 Ciências</div>
+            </div>
+            <div class="c-stat-mini"><div class="num red">1</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">39</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row pronto">
+            <div>
+                <div style="font-weight:700">8º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 1</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_8_d1_roxa.html">Prova 8º ano EF · Dia 1</a>
+                    
+                </div>
+                <div class="c-prova-sub">40 itens · 15 páginas · 19 Língua Portuguesa · 11 Geografia · 10 História</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">40</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row revisar">
+            <div>
+                <div style="font-weight:700">8º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 2</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_8_d2_roxa.html">Prova 8º ano EF · Dia 2</a>
+                    
+                </div>
+                <div class="c-prova-sub">40 itens · 15 páginas · 23 Ciências · 14 Matemática · 3 ?</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num yellow">1</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">39</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row pronto">
+            <div>
+                <div style="font-weight:700">9º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 1</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_9_d1_roxa.html">Prova 9º ano EF · Dia 1</a>
+                    
+                </div>
+                <div class="c-prova-sub">40 itens · 15 páginas · 18 Língua Portuguesa · 11 Geografia · 11 História</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">40</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row pronto">
+            <div>
+                <div style="font-weight:700">9º ano EF</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 2</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_9_d2_roxa.html">Prova 9º ano EF · Dia 2</a>
+                    
+                </div>
+                <div class="c-prova-sub">40 itens · 15 páginas · 19 Matemática · 16 Ciências · 5 ?</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">40</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row revisar">
+            <div>
+                <div style="font-weight:700">1ª série EM</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 1</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_1_d1_roxa.html">Prova 1ª série EM · Dia 1</a>
+                    
+                </div>
+                <div class="c-prova-sub">45 itens · 15 páginas · 12 Língua Portuguesa · 10 Geografia · 8 História · 8 Filosofia · 7 Inglês</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num yellow">1</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">44</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row revisar">
+            <div>
+                <div style="font-weight:700">1ª série EM</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 2</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_1_d2_roxa.html">Prova 1ª série EM · Dia 2</a>
+                    
+                </div>
+                <div class="c-prova-sub">45 itens · 15 páginas · 11 Matemática · 10 Física · 9 Química · 8 Educação Financeira · 7 Biologia</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num yellow">1</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">44</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row pronto">
+            <div>
+                <div style="font-weight:700">2ª série EM</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 1</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_2_d1_roxa.html">Prova 2ª série EM · Dia 1</a>
+                    
+                </div>
+                <div class="c-prova-sub">35 itens · 15 páginas · 15 Língua Portuguesa · 10 Sociologia · 6 História · 4 Geografia</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">35</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row revisar">
+            <div>
+                <div style="font-weight:700">2ª série EM</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 2</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_2_d2_roxa.html">Prova 2ª série EM · Dia 2</a>
+                    
+                </div>
+                <div class="c-prova-sub">35 itens · 15 páginas · 13 Matemática · 7 Biologia · 6 Química · 5 Educação Financeira · 4 Física</div>
+            </div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num yellow">2</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">33</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row urgente">
+            <div>
+                <div style="font-weight:700">3ª série EM</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 1</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_3_d1_roxa.html">Prova 3ª série EM · Dia 1</a>
+                    
+                </div>
+                <div class="c-prova-sub">35 itens · 15 páginas · 18 História · 17 Língua Portuguesa</div>
+            </div>
+            <div class="c-stat-mini"><div class="num red">2</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">33</div><div class="lbl">OK</div></div>
+        </div>
+        <div class="c-prova-row urgente">
+            <div>
+                <div style="font-weight:700">3ª série EM</div>
+                <div class="c-muted" style="font-size:var(--fs-xs)">Dia 2</div>
+            </div>
+            <div>
+                <div class="c-prova-titulo">
+                    <a href="prova_3_d2_roxa.html">Prova 3ª série EM · Dia 2</a>
+                    
+                </div>
+                <div class="c-prova-sub">25 itens · 15 páginas · 18 Matemática · 7 Física</div>
+            </div>
+            <div class="c-stat-mini"><div class="num red">1</div><div class="lbl">críticos</div></div>
+            <div class="c-stat-mini"><div class="num gray">0</div><div class="lbl">a conferir</div></div>
+            <div class="c-stat-mini"><div class="num green">24</div><div class="lbl">OK</div></div>
+        </div>
+    </div>
+    </main>
+    </section>
+    
+
+<script>
+(function () {
+    function setTab(name) {
+        document.querySelectorAll('.c-tab-btn').forEach(function (b) {
+            b.classList.toggle('active', b.dataset.tab === name);
+        });
+        document.querySelectorAll('.c-tab-panel').forEach(function (p) {
+            p.classList.toggle('active', p.dataset.tab === name);
+        });
+        try { history.replaceState(null, '', '#' + name); } catch (_) {}
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.c-tab-btn').forEach(function (b) {
+            b.addEventListener('click', function () { setTab(b.dataset.tab); });
+        });
+        var hash = (location.hash || '').replace('#', '');
+        if (hash === 'criterios' || hash === 'resultados') setTab(hash);
+    });
+})();
+</script>
+
+</body></html>

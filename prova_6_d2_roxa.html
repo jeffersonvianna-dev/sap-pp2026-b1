@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<title>SAP — 6º ano EF · Dia 2 · Prova Roxa</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body {
+    background: var(--gray);
+    color: var(--text);
+    font-family: var(--font);
+    margin: 0;
+    line-height: 1.5;
+}
+.c-page {
+    max-width: var(--max-w-cms);
+    margin: 0 auto;
+    padding: var(--sp-6) var(--px);
+}
+.c-page h1 { font-size: var(--fs-xl); font-weight: 700; margin: 0 0 var(--sp-2); color: var(--text); }
+.c-page h2 { font-size: var(--fs-lg); font-weight: 700; margin: var(--sp-8) 0 var(--sp-3); color: var(--text); }
+.c-page p  { font-size: var(--fs-base); margin: var(--sp-2) 0; color: var(--text); }
+.c-page a  { color: var(--blue); text-decoration: none; font-weight: 600; }
+.c-page a:hover { text-decoration: underline; }
+.c-muted { color: var(--text-muted); font-size: var(--fs-sm); }
+
+.c-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--sp-3);
+    margin: var(--sp-5) 0;
+}
+.c-kpi {
+    background: #fff;
+    border: 1px solid var(--gray-mid);
+    border-radius: var(--radius);
+    padding: var(--sp-4);
+    box-shadow: var(--shadow);
+}
+.c-kpi.acc-red    { border-top: 4px solid var(--red); }
+.c-kpi.acc-orange { border-top: 4px solid var(--orange); }
+.c-kpi.acc-yellow { border-top: 4px solid var(--yellow); }
+.c-kpi.acc-green  { border-top: 4px solid var(--green); }
+.c-kpi.acc-blue   { border-top: 4px solid var(--blue); }
+.c-kpi-label {
+    font-size: var(--fs-xs); color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: .06em; font-weight: 700;
+}
+.c-kpi-value {
+    font-size: 1.6rem; font-weight: 700; margin-top: var(--sp-2);
+}
+.c-kpi-value.red    { color: var(--red); }
+.c-kpi-value.orange { color: var(--orange); }
+.c-kpi-value.yellow { color: var(--yellow); }
+.c-kpi-value.green  { color: var(--green); }
+.c-kpi-value.blue   { color: var(--blue); }
+
+.c-flag-card {
+    background: #fff;
+    border: 1px solid var(--gray-mid);
+    border-left: 4px solid var(--red);
+    border-radius: var(--radius);
+    padding: var(--sp-4);
+    margin: var(--sp-2) 0;
+    box-shadow: var(--shadow);
+}
+.c-flag-card.alta   { border-left-color: var(--orange); }
+.c-flag-card.media  { border-left-color: var(--yellow); }
+.c-flag-card.baixa  { border-left-color: var(--blue); }
+
+.c-cor-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+.c-cor-on  { background: var(--green); }
+.c-cor-off { background: var(--gray-mid); }
+
+.c-cor-list {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.c-row-warn {
+    background: var(--yellow-light);
+}
+
+/* Linhas de itens com categoria */
+.c-table tr.row-critico td:first-child { border-left: 3px solid var(--red); }
+.c-table tr.row-analisar td:first-child { border-left: 3px solid var(--yellow); }
+
+.chevron {
+    display: inline-block;
+    width: 14px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+/* Linha de detalhes (sem hover azul, para parecer parte da expansão) */
+.c-table tr.row-detalhe:hover { background: var(--gray-lighter) !important; }
+
+.c-legend {
+    display: flex; gap: var(--sp-4); flex-wrap: wrap;
+    font-size: var(--fs-sm); color: var(--text-muted);
+    margin: var(--sp-3) 0;
+}
+.c-legend span { display: inline-flex; align-items: center; gap: 4px; }
+</style>
+</head><body>
+<header class="c-header"><div class="c-header-inner">
+    <div class="c-header-logo" style="font-size:13px;letter-spacing:.5px">SAP</div>
+    <div>
+        <h1>SAP | Sistema de Análise de Provas</h1>
+        <p>6º ano EF · Dia 2 · Prova Roxa</p>
+    </div>
+</div></header>
+<main class="c-page">
+
+<p><a href="index.html">← Voltar à visão geral</a></p>
+<h1>6º ano EF · Dia 2 · Prova Roxa</h1>
+<p class="c-muted">Análise crítica avaliativa — passe automático + calibração pedagógica.</p>
+
+
+        <div class="c-kpis">
+            <div class="c-kpi acc-blue"><div class="c-kpi-label">Itens</div><div class="c-kpi-value">40</div></div>
+            <div class="c-kpi acc-red"><div class="c-kpi-label">Críticos</div><div class="c-kpi-value red">0</div></div>
+            <div class="c-kpi acc-yellow"><div class="c-kpi-label">A conferir</div><div class="c-kpi-value yellow">0</div></div>
+            <div class="c-kpi acc-green"><div class="c-kpi-label">OK</div><div class="c-kpi-value green">40</div></div>
+            <div class="c-kpi acc-blue"><div class="c-kpi-label">Páginas</div><div class="c-kpi-value">15</div></div>
+        </div>
+
+    <div class="c-flag-card" style="border-left:4px solid var(--blue);background:#fff">
+        <div style="font-weight:700;color:var(--blue);font-size:var(--fs-sm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">
+            Análise crítica avaliativa — Resumo do coordenador
+        </div>
+        <div>Prova 6° ano EF · Dia 2 · 40 itens. Matemática (20) · Ciências (15) · Língua Inglesa (5). A IA não encontrou problema pedagógico no que conseguiu avaliar. Itens dependentes de imagem/figura (Q13, Q21, Q22, Q27, Q29, Q33 e mais 3) confiam no caderno impresso para o conteúdo visual.</div>
+        <div class="c-muted" style="font-size:var(--fs-xs);margin-top:8px">
+            Calibrado em 2026-04-30 · IA (Claude) — calibração v3 (flags estruturadas)
+        </div>
+    </div>
+
+<div class="c-legend">
+    <span class="status-pill critico">Crítico</span> = ajustar
+    <span class="status-pill analisar">Conferir</span> = vale revisar
+    <span class="status-pill ok">OK</span> = não precisa olhar
+</div>
+
+    <style>
+    td.cell-crit { text-align: center; }
+    .cell-crit-count {
+        display: inline-block;
+        min-width: 32px;
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-weight: 800;
+        font-size: .85rem;
+        border: 1.5px solid;
+        line-height: 1.1;
+    }
+    .cell-crit-count.red    { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+    .cell-crit-count.yellow { background: #fef3c7; color: #854d0e; border-color: #fcd34d; }
+    .cell-crit-count.green  { background: #dcfce7; color: #166534; border-color: #86efac; }
+    .cell-crit-count.zero   { background: #f8fafc; color: #94a3b8; border-color: #e2e8f0; }
+
+    /* Pill de status (Crítico / Conferir / OK) — alto contraste */
+    .status-pill {
+        display: inline-block;
+        padding: 5px 14px;
+        border-radius: 999px;
+        font-size: .75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        color: #fff;
+        border: 1.5px solid;
+        line-height: 1.2;
+        min-width: 92px;
+        text-align: center;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+        white-space: nowrap;
+    }
+    .status-pill.critico  { background: #b91c1c; border-color: #7f1d1d; }
+    .status-pill.analisar { background: #c2410c; border-color: #7c2d12; }
+    .status-pill.ok       { background: #15803d; border-color: #14532d; }
+
+    /* Lista de flags na expansão (C# | descrição | severidade) */
+    .flag-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 8px;
+    }
+    .flag-row {
+        display: grid;
+        grid-template-columns: 56px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        background: #fff;
+        padding: 10px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        font-size: .82rem;
+        color: #0f172a;
+        line-height: 1.4;
+    }
+    .flag-crit-tag {
+        display: inline-block;
+        background: #1d4ed8;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        font-size: .75rem;
+        font-weight: 800;
+        text-align: center;
+        min-width: 36px;
+        letter-spacing: .03em;
+    }
+    .flag-desc { color: #0f172a; }
+    .flag-sev {
+        display: inline-block;
+        padding: 4px 14px;
+        border-radius: 999px;
+        font-size: .7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        color: #fff;
+        border: 1.5px solid;
+        min-width: 80px;
+        text-align: center;
+        line-height: 1.2;
+    }
+    .flag-sev.critica { background: #b91c1c; border-color: #7f1d1d; }
+    .flag-sev.alta    { background: #c2410c; border-color: #7c2d12; }
+    .flag-sev.media   { background: #b45309; border-color: #78350f; }
+    .flag-sev.baixa   { background: #1d4ed8; border-color: #1e3a8a; }
+    </style>
+    <div class="c-table-wrap">
+    <table class="c-table">
+    <thead><tr>
+        <th style="width:90px">Questão</th>
+        <th style="min-width:200px">Componente</th>
+        <th style="width:64px;text-align:center" title="Operacional da prova">C1</th>
+        <th style="width:64px;text-align:center" title="O item faz sentido?">C2</th>
+        <th style="width:64px;text-align:center" title="Equidade e contexto">C3</th>
+        <th style="width:64px;text-align:center" title="Validação pedagógica">C4</th>
+        <th style="width:120px">Status</th>
+    </tr></thead>
+    <tbody>
+        <tr onclick="toggleItem(1)" style="cursor:pointer" id="row-1">
+            <td><span id="chev-1" class="chevron">▸</span> <strong>Q1</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.2</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">4</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-1" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=42.5 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(2)" style="cursor:pointer" id="row-2">
+            <td><span id="chev-2" class="chevron">▸</span> <strong>Q2</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.2</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-2" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=38.4 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(3)" style="cursor:pointer" id="row-3">
+            <td><span id="chev-3" class="chevron">▸</span> <strong>Q3</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.3</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count yellow">5</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-3" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta está mais similar com o enunciado do que com os distratores</span><span class="flag-sev alta">ALTA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=45.9 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta repete palavras do enunciado desproporcionalmente</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(4)" style="cursor:pointer" id="row-4">
+            <td><span id="chev-4" class="chevron">▸</span> <strong>Q4</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.3</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-4" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(5)" style="cursor:pointer" id="row-5">
+            <td><span id="chev-5" class="chevron">▸</span> <strong>Q5</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.3</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">5</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-5" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=28.0 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta repete palavras do enunciado desproporcionalmente</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(6)" style="cursor:pointer" id="row-6">
+            <td><span id="chev-6" class="chevron">▸</span> <strong>Q6</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.4</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-6" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta repete palavras do enunciado desproporcionalmente</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(7)" style="cursor:pointer" id="row-7">
+            <td><span id="chev-7" class="chevron">▸</span> <strong>Q7</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.4</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-7" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(8)" style="cursor:pointer" id="row-8">
+            <td><span id="chev-8" class="chevron">▸</span> <strong>Q8</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.4</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-8" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=38.9 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(9)" style="cursor:pointer" id="row-9">
+            <td><span id="chev-9" class="chevron">▸</span> <strong>Q9</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.4</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">4</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-9" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(10)" style="cursor:pointer" id="row-10">
+            <td><span id="chev-10" class="chevron">▸</span> <strong>Q10</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.5</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">1</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-10" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(11)" style="cursor:pointer" id="row-11">
+            <td><span id="chev-11" class="chevron">▸</span> <strong>Q11</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.5</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-11" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(12)" style="cursor:pointer" id="row-12">
+            <td><span id="chev-12" class="chevron">▸</span> <strong>Q12</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.5</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-12" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(13)" style="cursor:pointer" id="row-13">
+            <td><span id="chev-13" class="chevron">▸</span> <strong>Q13</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.6</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-13" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(14)" style="cursor:pointer" id="row-14">
+            <td><span id="chev-14" class="chevron">▸</span> <strong>Q14</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.6</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count red">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-14" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativas [&#x27;A&#x27;, &#x27;B&#x27;] têm texto idêntico</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativas [&#x27;C&#x27;, &#x27;D&#x27;] têm texto idêntico</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(15)" style="cursor:pointer" id="row-15">
+            <td><span id="chev-15" class="chevron">▸</span> <strong>Q15</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.7</div></td>
+            <td>Ciências - 8468</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">4</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-15" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=47.3 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(16)" style="cursor:pointer" id="row-16">
+            <td><span id="chev-16" class="chevron">▸</span> <strong>Q16</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.7</div></td>
+            <td>Língua Inglesa - 8467</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">1</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-16" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q16: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(17)" style="cursor:pointer" id="row-17">
+            <td><span id="chev-17" class="chevron">▸</span> <strong>Q17</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.8</div></td>
+            <td>Língua Inglesa - 8467</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">1</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">1</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-17" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q17: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(18)" style="cursor:pointer" id="row-18">
+            <td><span id="chev-18" class="chevron">▸</span> <strong>Q18</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.8</div></td>
+            <td>Língua Inglesa - 8467</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">1</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-18" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q18: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(19)" style="cursor:pointer" id="row-19">
+            <td><span id="chev-19" class="chevron">▸</span> <strong>Q19</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.8</div></td>
+            <td>Língua Inglesa - 8467</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">1</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-19" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q19: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(20)" style="cursor:pointer" id="row-20">
+            <td><span id="chev-20" class="chevron">▸</span> <strong>Q20</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.8</div></td>
+            <td>Língua Inglesa - 8467</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">1</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-20" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q20: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(21)" style="cursor:pointer" id="row-21">
+            <td><span id="chev-21" class="chevron">▸</span> <strong>Q21</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.9</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-21" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=46.4 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(22)" style="cursor:pointer" id="row-22">
+            <td><span id="chev-22" class="chevron">▸</span> <strong>Q22</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.9</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-22" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(23)" style="cursor:pointer" id="row-23">
+            <td><span id="chev-23" class="chevron">▸</span> <strong>Q23</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.9</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-23" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(24)" style="cursor:pointer" id="row-24">
+            <td><span id="chev-24" class="chevron">▸</span> <strong>Q24</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.9</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-24" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=27.0 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(25)" style="cursor:pointer" id="row-25">
+            <td><span id="chev-25" class="chevron">▸</span> <strong>Q25</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.10</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-25" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=48.9 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(26)" style="cursor:pointer" id="row-26">
+            <td><span id="chev-26" class="chevron">▸</span> <strong>Q26</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.10</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-26" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=47.5 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(27)" style="cursor:pointer" id="row-27">
+            <td><span id="chev-27" class="chevron">▸</span> <strong>Q27</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.10</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-27" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(28)" style="cursor:pointer" id="row-28">
+            <td><span id="chev-28" class="chevron">▸</span> <strong>Q28</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.10</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-28" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(29)" style="cursor:pointer" id="row-29">
+            <td><span id="chev-29" class="chevron">▸</span> <strong>Q29</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.11</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-29" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr id="row-30">
+            <td> <strong>Q30</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.11</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+        <tr onclick="toggleItem(31)" style="cursor:pointer" id="row-31">
+            <td><span id="chev-31" class="chevron">▸</span> <strong>Q31</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.11</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-31" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=26.5 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(32)" style="cursor:pointer" id="row-32">
+            <td><span id="chev-32" class="chevron">▸</span> <strong>Q32</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.12</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">1</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-32" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(33)" style="cursor:pointer" id="row-33">
+            <td><span id="chev-33" class="chevron">▸</span> <strong>Q33</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.12</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-33" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(34)" style="cursor:pointer" id="row-34">
+            <td><span id="chev-34" class="chevron">▸</span> <strong>Q34</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.13</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-34" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(35)" style="cursor:pointer" id="row-35">
+            <td><span id="chev-35" class="chevron">▸</span> <strong>Q35</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.13</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-35" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(36)" style="cursor:pointer" id="row-36">
+            <td><span id="chev-36" class="chevron">▸</span> <strong>Q36</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.14</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-36" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(37)" style="cursor:pointer" id="row-37">
+            <td><span id="chev-37" class="chevron">▸</span> <strong>Q37</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.14</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-37" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=1.8 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(38)" style="cursor:pointer" id="row-38">
+            <td><span id="chev-38" class="chevron">▸</span> <strong>Q38</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.15</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">3</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-38" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=20.2 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(39)" style="cursor:pointer" id="row-39">
+            <td><span id="chev-39" class="chevron">▸</span> <strong>Q39</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.15</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count green">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-39" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr>
+        <tr onclick="toggleItem(40)" style="cursor:pointer" id="row-40">
+            <td><span id="chev-40" class="chevron">▸</span> <strong>Q40</strong><div class="c-muted" style="font-size:var(--fs-xs)">p.15</div></td>
+            <td>Matemática - 2700</td>
+            <td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count yellow">2</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td><td class="cell-crit"><span class="cell-crit-count zero">0</span></td>
+            <td><span class="status-pill ok">OK</span></td>
+        </tr>
+            <tr id="det-40" class="row-detalhe" style="display:none">
+                <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta está mais similar com o enunciado do que com os distratores</span><span class="flag-sev alta">ALTA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                </td>
+            </tr></tbody>
+    </table>
+    </div>
+
+
+    <h2>Apontamentos da prova (gerais)</h2>
+    <p class="c-muted">Apontamentos que valem para a prova como um todo, não para um item específico.</p>
+    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C1</span><span class="flag-desc">N° de alternativas varia entre itens da mesma prova</span><span class="flag-sev critica">CRÍTICA</span></div></div>
+
+<script>
+function toggleItem(n) {
+    var row = document.getElementById('det-' + n);
+    var chev = document.getElementById('chev-' + n);
+    if (!row) return;
+    if (row.style.display === 'none') {
+        row.style.display = '';
+        if (chev) chev.textContent = '▾';
+    } else {
+        row.style.display = 'none';
+        if (chev) chev.textContent = '▸';
+    }
+}
+</script>
+
+</main>
+</body></html>
