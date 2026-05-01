@@ -143,7 +143,7 @@ body {
         </div>
         <div>Prova 7° ano EF · Dia 2 · 40 itens. Matemática (15) · Ciências (10) · Educação Financeira (5) · Língua Inglesa (5) · Tecnologia e Inovação (5). Achados pedagógicos da IA: • Q30 [CRÍTICO] — IA-gabarito-resolvido. Itens dependentes de imagem/figura (Q1, Q4, Q13, Q15, Q16, Q17 e mais 2) confiam no caderno impresso para o conteúdo visual.</div>
         <div class="c-muted" style="font-size:var(--fs-xs);margin-top:8px">
-            Calibrado em 2026-04-30 · IA (Claude) — calibração v3 (flags estruturadas)
+            Calibrado em 2026-05-01 · IA (Claude) — calibração v3 (flags estruturadas + cross-cor)
         </div>
     </div>
 
@@ -264,7 +264,7 @@ body {
         </tr>
             <tr id="det-30" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">IA resolveu o item e encontrou problema (sem alternativa correta, mais de uma correta, ou gabarito catalogado errado)</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=32.9 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">IA resolve o item analisando comando, alternativas e distratores; falha se não há exatamente uma resposta correta ou se a resposta diverge do gabarito catalogado</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(1)" style="cursor:pointer" id="row-1">
@@ -275,7 +275,7 @@ body {
         </tr>
             <tr id="det-1" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(2)" style="cursor:pointer" id="row-2">
@@ -286,7 +286,7 @@ body {
         </tr>
             <tr id="det-2" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=39.6 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr id="row-3">
@@ -303,7 +303,7 @@ body {
         </tr>
             <tr id="det-4" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(5)" style="cursor:pointer" id="row-5">
@@ -314,7 +314,7 @@ body {
         </tr>
             <tr id="det-5" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(6)" style="cursor:pointer" id="row-6">
@@ -325,7 +325,7 @@ body {
         </tr>
             <tr id="det-6" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=40.4 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(7)" style="cursor:pointer" id="row-7">
@@ -336,7 +336,7 @@ body {
         </tr>
             <tr id="det-7" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=20.0 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(8)" style="cursor:pointer" id="row-8">
@@ -347,7 +347,7 @@ body {
         </tr>
             <tr id="det-8" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é o mais detalhado (comprimento da chave ≤ média + 1σ dos distratores)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(9)" style="cursor:pointer" id="row-9">
@@ -358,7 +358,7 @@ body {
         </tr>
             <tr id="det-9" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(10)" style="cursor:pointer" id="row-10">
@@ -369,7 +369,7 @@ body {
         </tr>
             <tr id="det-10" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=41.3 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(11)" style="cursor:pointer" id="row-11">
@@ -380,7 +380,7 @@ body {
         </tr>
             <tr id="det-11" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=17.4 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(12)" style="cursor:pointer" id="row-12">
@@ -391,7 +391,7 @@ body {
         </tr>
             <tr id="det-12" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(13)" style="cursor:pointer" id="row-13">
@@ -402,7 +402,7 @@ body {
         </tr>
             <tr id="det-13" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(14)" style="cursor:pointer" id="row-14">
@@ -413,7 +413,7 @@ body {
         </tr>
             <tr id="det-14" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=31.2 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(15)" style="cursor:pointer" id="row-15">
@@ -424,7 +424,7 @@ body {
         </tr>
             <tr id="det-15" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta está mais similar com o enunciado do que com os distratores</span><span class="flag-sev alta">ALTA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado não permite resolução por eliminação fácil (sobreposição token chave↔enunciado)</span><span class="flag-sev alta">ALTA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(16)" style="cursor:pointer" id="row-16">
@@ -435,7 +435,7 @@ body {
         </tr>
             <tr id="det-16" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q16: disciplina no PDF &#x27;Matemática&#x27; diverge do banco &#x27;Educação financeira - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(17)" style="cursor:pointer" id="row-17">
@@ -446,7 +446,7 @@ body {
         </tr>
             <tr id="det-17" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q17: disciplina no PDF &#x27;Matemática&#x27; diverge do banco &#x27;Educação financeira - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(18)" style="cursor:pointer" id="row-18">
@@ -457,7 +457,7 @@ body {
         </tr>
             <tr id="det-18" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=44.0 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q18: disciplina no PDF &#x27;Matemática&#x27; diverge do banco &#x27;Educação financeira - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(19)" style="cursor:pointer" id="row-19">
@@ -468,7 +468,7 @@ body {
         </tr>
             <tr id="det-19" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=49.6 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q19: disciplina no PDF &#x27;Matemática&#x27; diverge do banco &#x27;Educação financeira - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(20)" style="cursor:pointer" id="row-20">
@@ -479,7 +479,7 @@ body {
         </tr>
             <tr id="det-20" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta está mais similar com o enunciado do que com os distratores</span><span class="flag-sev alta">ALTA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta repete palavras do enunciado desproporcionalmente</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q20: disciplina no PDF &#x27;Matemática&#x27; diverge do banco &#x27;Educação financeira - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado não permite resolução por eliminação fácil (sobreposição token chave↔enunciado)</span><span class="flag-sev alta">ALTA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não repete palavras do enunciado desproporcionalmente</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(21)" style="cursor:pointer" id="row-21">
@@ -490,7 +490,7 @@ body {
         </tr>
             <tr id="det-21" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta repete palavras do enunciado desproporcionalmente</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q21: disciplina no PDF &#x27;Matemática&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não repete palavras do enunciado desproporcionalmente</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(22)" style="cursor:pointer" id="row-22">
@@ -501,7 +501,7 @@ body {
         </tr>
             <tr id="det-22" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q22: disciplina no PDF &#x27;Matemática&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(23)" style="cursor:pointer" id="row-23">
@@ -512,7 +512,7 @@ body {
         </tr>
             <tr id="det-23" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q23: disciplina no PDF &#x27;Matemática&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(24)" style="cursor:pointer" id="row-24">
@@ -523,7 +523,7 @@ body {
         </tr>
             <tr id="det-24" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q24: disciplina no PDF &#x27;Matemática&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é o mais detalhado (comprimento da chave ≤ média + 1σ dos distratores)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(25)" style="cursor:pointer" id="row-25">
@@ -534,7 +534,7 @@ body {
         </tr>
             <tr id="det-25" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q25: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Língua Inglesa&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(26)" style="cursor:pointer" id="row-26">
@@ -545,7 +545,7 @@ body {
         </tr>
             <tr id="det-26" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=29.9 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(27)" style="cursor:pointer" id="row-27">
@@ -556,7 +556,7 @@ body {
         </tr>
             <tr id="det-27" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=39.8 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta repete palavras do enunciado desproporcionalmente</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é o mais detalhado (comprimento da chave ≤ média + 1σ dos distratores)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não repete palavras do enunciado desproporcionalmente</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(28)" style="cursor:pointer" id="row-28">
@@ -567,7 +567,7 @@ body {
         </tr>
             <tr id="det-28" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=2.4 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(29)" style="cursor:pointer" id="row-29">
@@ -578,7 +578,7 @@ body {
         </tr>
             <tr id="det-29" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(31)" style="cursor:pointer" id="row-31">
@@ -589,7 +589,7 @@ body {
         </tr>
             <tr id="det-31" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é o mais detalhado (comprimento da chave ≤ média + 1σ dos distratores)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(32)" style="cursor:pointer" id="row-32">
@@ -600,7 +600,7 @@ body {
         </tr>
             <tr id="det-32" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(33)" style="cursor:pointer" id="row-33">
@@ -611,7 +611,7 @@ body {
         </tr>
             <tr id="det-33" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=23.6 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(34)" style="cursor:pointer" id="row-34">
@@ -622,7 +622,7 @@ body {
         </tr>
             <tr id="det-34" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado vazio</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(35)" style="cursor:pointer" id="row-35">
@@ -633,7 +633,7 @@ body {
         </tr>
             <tr id="det-35" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado pode não expressar ideia completa</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=41.5 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado expressa ideia completa (compreensível sem ler as opções)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(36)" style="cursor:pointer" id="row-36">
@@ -644,7 +644,7 @@ body {
         </tr>
             <tr id="det-36" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=43.7 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q36: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Tecnologia e Inovação - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(37)" style="cursor:pointer" id="row-37">
@@ -655,7 +655,7 @@ body {
         </tr>
             <tr id="det-37" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=29.6 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q37: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Tecnologia e Inovação - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(38)" style="cursor:pointer" id="row-38">
@@ -666,7 +666,7 @@ body {
         </tr>
             <tr id="det-38" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado sem verbo de comando ou pergunta clara</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q38: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Tecnologia e Inovação - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Tarefa do examinando claramente definida no enunciado (verbo de comando + objeto)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(39)" style="cursor:pointer" id="row-39">
@@ -677,7 +677,7 @@ body {
         </tr>
             <tr id="det-39" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=42.4 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta significativamente mais longa que os distratores (dica involuntária)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q39: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Tecnologia e Inovação - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é o mais detalhado (comprimento da chave ≤ média + 1σ dos distratores)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr>
         <tr onclick="toggleItem(40)" style="cursor:pointer" id="row-40">
@@ -688,7 +688,7 @@ body {
         </tr>
             <tr id="det-40" class="row-detalhe" style="display:none">
                 <td colspan="7" style="background:var(--gray-lighter);padding:var(--sp-3) var(--sp-5)">
-                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Enunciado com legibilidade baixa (Flesch=49.6 &lt; 50.0)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Alternativa correta é textualmente muito diferente dos distratores</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Q40: disciplina no PDF &#x27;Ciências&#x27; diverge do banco &#x27;Tecnologia e Inovação - Parte Diversificada&#x27;</span><span class="flag-sev baixa">BAIXA</span></div></div>
+                    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Linguagem simples, direta, sem ambiguidade (Flesch PT-BR)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C2</span><span class="flag-desc">Gabarito não é claramente diferente das demais opções (similaridade textual)</span><span class="flag-sev baixa">BAIXA</span></div><div class="flag-row"><span class="flag-crit-tag">C4</span><span class="flag-desc">Componente declarado == componente real do enunciado (classificador NLP)</span><span class="flag-sev baixa">BAIXA</span></div></div>
                 </td>
             </tr></tbody>
     </table>
@@ -697,7 +697,7 @@ body {
 
     <h2>Apontamentos da prova (gerais)</h2>
     <p class="c-muted">Apontamentos que valem para a prova como um todo, não para um item específico.</p>
-    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C1</span><span class="flag-desc">N° de alternativas varia entre itens da mesma prova</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">N° de itens difere entre cores: Roxa=40, Laranja=38, Verde=38</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">2 item(ns) sem pareamento na Laranja</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">2 item(ns) sem pareamento na Verde</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">2 item(ns) com status de pareamento Laranja anômalo</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">2 item(ns) com status de pareamento Verde anômalo</span><span class="flag-sev critica">CRÍTICA</span></div></div>
+    <div class="flag-list"><div class="flag-row"><span class="flag-crit-tag">C1</span><span class="flag-desc">N° de alternativas constante na prova (todas 4 ou todas 5) — leitor ótico não tolera variação</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">N° total de itens igual entre as 3 versões</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">Sem item órfão (presente em uma cor, ausente em outra)</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">Sem item órfão (presente em uma cor, ausente em outra)</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">Texto da alternativa correta com hash MD5 igual entre cores</span><span class="flag-sev critica">CRÍTICA</span></div><div class="flag-row"><span class="flag-crit-tag">C5</span><span class="flag-desc">Texto da alternativa correta com hash MD5 igual entre cores</span><span class="flag-sev critica">CRÍTICA</span></div></div>
 
 <script>
 function toggleItem(n) {
